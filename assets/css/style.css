@@ -1,0 +1,75 @@
+/* as a default erases the gap and ppl cant select*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+/* background set to white, removed scrolling, stays on top  */
+body {
+    background: #fff;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+/* make it as a background to fulfill the requrement */
+canvas#sky {
+    top: 0;
+    left: 0;
+    z-index: 0;
+    position: fixed;
+    pointer-events: none;
+}
+/* the watter btl text written in front the big one  */
+#hdr {
+    color: black;
+    font-size: 80px;
+    font-weight: 500;
+    margin-top: 150px;
+    text-align: center;
+}
+/* makes the search box on the center  */
+.search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+/* edits the height width and margin to make it on a specific location from the text and size of the text */
+.search-box input {
+    width: 40%;
+    height: 40px;
+    margin-top: 30px;
+    font-size: 15px;
+}
+/* the place holder or sth on the box that appears when there is nothing written those are here  */
+.search-box input::placeholder {
+    font-size: 15px;
+}
+/* making all the buttons stay in the cetner next to eachother , adjusted the gap between them then added mt:30 so that it can have a spacce from the search box */
+.all-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    gap: 10px;
+}
+/* the buttn icons size */
+.btn i {
+    font-size: 30px;
+}
+/* button to be on the center of the circle  have that background circle and transition*/
+a .btn {
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    color: black;
+}
+/* changes the background and the size of the buttons when the mouse is on top */
+.btn:hover {
+    background-color: #444;
+    transform: scale(1.2);
+}
