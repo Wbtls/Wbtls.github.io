@@ -1,3 +1,5 @@
+// fixed dont mess it up
+
 window.onload = function(){
 console.log('hello');
 
