@@ -1,80 +1,66 @@
-<canvas id="sky"></canvas>
+window.onload = function(){
+console.log('hello');
 
-<script>
-window.onload = function () {
-  const canvas = document.getElementById("sky");
-  const ctx = canvas.getContext("2d");
+  //get the cancvas and context and store in vars
+  var canvas = document.getElementById("sky");
+  var ctx = canvas.getContext("2d");
 
-  let W = window.innerWidth;
-  let H = window.innerHeight;
+  //set canvas dims to window height and width
+  var W = window.innerWidth;
+  var H = window.innerHeight;
   canvas.width = W;
   canvas.height = H;
 
-  const maxFlakes = 100;
-  const flakes = [];
+  //generate the snowflakes and apply attributes
+  var mf = 100; //max flakes
+  var flakes = [];
 
-  // Initialize flakes
-  for (let i = 0; i < maxFlakes; i++) {
+  //loop throught the empty flakes and apply attributes
+  for(var i = 0; i < mf; i++)
+  {
     flakes.push({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      r: Math.random() * 5 + 2,
-      d: Math.random() + 1,
-    });
+      x: Math.random()*W,
+      y: Math.random()*H,
+      r: Math.random()*5+2, //min of 2px and max of 7px
+      d: Math.random() + 1 //density of the flake
+
+    })
   }
 
-  let angle = 0;
-
-  function drawFlakes() {
+  //draw flakes onto canvas
+  function drawFlakes()
+  {
     ctx.clearRect(0, 0, W, H);
-
-    ctx.fillStyle = "white";
-    ctx.shadowColor = "#00faff"; // Glow color
-    ctx.shadowBlur = 15;         // Glow intensity
+    ctx.fillStyle = "black";
     ctx.beginPath();
-
-    for (let i = 0; i < maxFlakes; i++) {
-      const f = flakes[i];
+    for(var i = 0; i < mf; i++){
+      var f = flakes[i];
       ctx.moveTo(f.x, f.y);
-      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
+      ctx.arc(f.x, f.y, f.r, 0, Math.PI*2, true);
     }
-
     ctx.fill();
-    ctx.shadowBlur = 0; // Reset glow after drawing
     moveFlakes();
   }
 
-  function moveFlakes() {
+  //animate the flakes
+  var angle = 0;
+  function moveFlakes(){
     angle += 0.01;
-    for (let i = 0; i < maxFlakes; i++) {
-      const f = flakes[i];
+    for(var i = 0; i < mf; i++)
+    {
+      //store current flake
+      var f = flakes[i];
+
+      //update X and Y coordinates of each snowflakes
       f.y += Math.pow(f.d, 2) + 1;
       f.x += Math.sin(angle) * 2;
 
-      if (f.y > H) {
-        flakes[i] = {
-          x: Math.random() * W,
-          y: 0,
-          r: f.r,
-          d: f.d,
-        };
+      //if the snowflake reaches the bottom, send a new one to the top
+      if(f.y > H){
+        flakes[i] = {x: Math.random()*W, y: 0, r: f.r, d: f.d};
       }
     }
   }
 
-  function animate() {
-    drawFlakes();
-    requestAnimationFrame(animate);
-  }
-
-  // Handle window resize
-  window.addEventListener("resize", () => {
-    W = window.innerWidth;
-    H = window.innerHeight;
-    canvas.width = W;
-    canvas.height = H;
-  });
-
-  animate();
-};
-</script>
+  setInterval(drawFlakes, 25);
+}
